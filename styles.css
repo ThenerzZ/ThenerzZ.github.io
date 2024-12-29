@@ -522,6 +522,72 @@ section h2 {
     color: #57C300;
 }
 
+/* Physics Engine Project Styles */
+.project-card:nth-child(4) {
+    background: linear-gradient(
+        135deg,
+        rgba(222, 165, 132, 0.1) 0%,
+        rgba(64, 224, 208, 0.1) 100%
+    );
+    border: 1px solid rgba(222, 165, 132, 0.2);
+}
+
+.project-card:nth-child(4) .project-header i {
+    color: #40E0D0; /* Turquoise for physics */
+    text-shadow: 0 0 20px rgba(64, 224, 208, 0.3);
+    animation: atomSpin 10s linear infinite;
+}
+
+@keyframes atomSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.project-card:nth-child(4) .project-header h3 {
+    background: linear-gradient(135deg, #DEA584, #40E0D0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project-card:nth-child(4) .project-tech span {
+    background: rgba(64, 224, 208, 0.1);
+    color: #40E0D0;
+}
+
+.project-card:nth-child(4) .project-link {
+    background: rgba(64, 224, 208, 0.1);
+    color: #40E0D0;
+}
+
+.project-card:nth-child(4):hover {
+    background: linear-gradient(
+        135deg,
+        rgba(222, 165, 132, 0.15) 0%,
+        rgba(64, 224, 208, 0.15) 100%
+    );
+    border-color: rgba(64, 224, 208, 0.3);
+}
+
+.project-card:nth-child(4):hover .project-header i {
+    color: #40E0D0;
+    text-shadow: 0 0 30px rgba(64, 224, 208, 0.5);
+}
+
+.project-card:nth-child(4) .project-tech span:hover {
+    background: rgba(64, 224, 208, 0.2);
+    transform: translateY(-2px);
+}
+
+.project-card:nth-child(4) .project-link:hover {
+    background: rgba(64, 224, 208, 0.2);
+    color: #40E0D0;
+    transform: translateY(-2px);
+}
+
 /* Password Generator Project Styles */
 .project-card:nth-child(3) {
     background: linear-gradient(
