@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabian Wegner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .particle {
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Fabian Wegner</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Fabian Wegner</h1>
+            <p>Hobby Programmer</p>
+            <a href="#projects" class="cta-button">View Projects</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hello! I'm Fabian, a hobby programmer with a strong foundation in systems programming and low-level development. I specialize in C#, C, C++, Rust, and Python, enjoying both the performance optimization of low-level code and the versatility of high-level languages.</p>
+                <div class="skills">
+                    <h3>Technologies I Work With</h3>
+                    <ul>
+                        <li><i class="fas fa-code"></i><br>C#</li>
+                        <li><i class="fas fa-microchip"></i><br>C</li>
+                        <li><i class="fas fa-cogs"></i><br>C++</li>
+                        <li><i class="fas fa-rocket"></i><br>Rust</li>
+                        <li><i class="fab fa-python"></i><br>Python</li>
+                        <li><i class="fab fa-git-alt"></i><br>Git</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card featured">
+                <div class="project-content">
+                    <div class="project-header">
+                        <i class="fas fa-chess"></i>
+                        <h3>Rust Chess Engine</h3>
+                    </div>
+                    <p>A high-performance chess engine built in Rust, featuring advanced move generation, position evaluation, and game tree search algorithms. The engine implements efficient board representation and move validation while leveraging Rust's safety guarantees and zero-cost abstractions.</p>
+                    <div class="project-tech">
+                        <span>Rust</span>
+                        <span>Chess AI</span>
+                        <span>Game Theory</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ThenerzZ/rust-chess-engine" target="_blank" class="project-link"><i class="fab fa-github"></i> View Source</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <i class="fas fa-cube"></i>
+                        <h3>CUDA Raytracer</h3>
+                    </div>
+                    <p>A high-performance raytracer implemented in Python and accelerated with CUDA. Features real-time rendering, physically-based materials, and advanced lighting effects. Leverages GPU parallel processing for significantly faster render times.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>CUDA</span>
+                        <span>Graphics</span>
+                        <span>GPU Computing</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ThenerzZ/python_raytracer" target="_blank" class="project-link"><i class="fab fa-github"></i> View Source</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <i class="fas fa-key"></i>
+                        <h3>Password Generator</h3>
+                    </div>
+                    <p>A secure password generator built in Python that creates strong, randomized passwords. Features customizable password length, character sets, and security options to ensure robust password generation for enhanced digital security.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Security</span>
+                        <span>Cryptography</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ThenerzZ/password_generator" target="_blank" class="project-link"><i class="fab fa-github"></i> View Source</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Get in Touch</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="social-links">
+                    <a href="https://github.com/ThenerzZ" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="brutalist-container">
+                    <input type="text" class="brutalist-input smooth-type" id="name" placeholder="Your Name">
+                    <label for="name" class="brutalist-label">NAME</label>
+                </div>
+                
+                <div class="brutalist-container">
+                    <input type="email" class="brutalist-input smooth-type" id="email" placeholder="Your Email">
+                    <label for="email" class="brutalist-label">EMAIL</label>
+                </div>
+                
+                <div class="brutalist-container">
+                    <textarea class="brutalist-input smooth-type" id="message" placeholder="Your Message" rows="5"></textarea>
+                    <label for="message" class="brutalist-label">MESSAGE</label>
+                </div>
+                
+                <button type="submit" class="brutalist-input submit-btn">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fabian Wegner. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
