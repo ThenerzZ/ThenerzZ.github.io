@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabian Wegner</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Fabian Wegner - Hobby Programmer specializing in systems programming and low-level development">
+    <meta name="keywords" content="Fabian Wegner, Programming, Rust, C++, Python, Game Development, Chess Engine">
+    <meta name="author" content="Fabian Wegner">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = `fas fa-${theme === 'dark' ? 'sun' : 'moon'}`;
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+    </script>
     <style>
         .loading-spinner {
             display: inline-block;
@@ -27,9 +54,47 @@
             position: absolute;
             pointer-events: none;
         }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .project-tech span {
+            transition: background-color 0.3s ease;
+            cursor: default;
+        }
+        
+        .project-tech span:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+    </button>
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">Fabian Wegner</div>
@@ -81,9 +146,11 @@
                     </div>
                     <p>A high-performance chess engine built in Rust, featuring advanced move generation, position evaluation, and game tree search algorithms. The engine implements efficient board representation and move validation while leveraging Rust's safety guarantees and zero-cost abstractions.</p>
                     <div class="project-tech">
-                        <span>Rust</span>
-                        <span>Chess AI</span>
-                        <span>Game Theory</span>
+                        <span title="Primary Language">Rust</span>
+                        <span title="Core Feature">Chess AI</span>
+                        <span title="Algorithm Type">Game Theory</span>
+                        <span title="Performance">High Performance</span>
+                        <span title="Architecture">Zero-cost Abstractions</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ThenerzZ/rust-chess-engine" target="_blank" class="project-link"><i class="fab fa-github"></i> View Source</a>

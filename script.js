@@ -1,121 +1,216 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+// Theme handling with enhanced transitions
+function initTheme() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const icon = themeToggle.querySelector('i');
+    
+    function updateThemeIcon(theme) {
+        icon.className = `fas fa-${theme === 'dark' ? 'sun' : 'moon'}`;
+    }
+    
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeIcon(theme);
+    }
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Add fade transition
+            document.body.style.opacity = '0';
+            
+            setTimeout(() => {
+                setTheme(newTheme);
+                document.body.style.opacity = '1';
+            }, 200);
+        });
+        
+        // Set initial theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+    }
+}
+
+// Initialize theme handling
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initHeroInteraction();
+    initAnimations();
+});
+
+// Enhanced animations
+function initAnimations() {
+    // Add animation order to project cards
+    document.querySelectorAll('.project-card').forEach((card, index) => {
+        card.style.setProperty('--animation-order', index);
+    });
+    
+    // Add animation order to skills
+    document.querySelectorAll('.skills li').forEach((skill, index) => {
+        skill.style.setProperty('--animation-order', index);
+    });
+    
+    // Add parallax effect
+    document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        const moveX = (clientX - centerX) / 50;
+        const moveY = (clientY - centerY) / 50;
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
         });
     });
-});
+}
 
-// Animate elements when they come into view
-const animateOnScroll = (entries, observer) => {
+// Smooth section transitions
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
-            observer.unobserve(entry.target);
+            entry.target.classList.add('visible');
+            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.opacity = '1';
         }
     });
-};
-
-const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(animateOnScroll, observerOptions);
-
-// Observe all sections and project cards
-document.querySelectorAll('section, .project-card').forEach(element => {
-    element.style.opacity = '0';
-    observer.observe(element);
+}, {
+    threshold: 0.1,
+    rootMargin: '-50px'
 });
 
-// Particle background effect
-const createParticles = () => {
+document.querySelectorAll('section').forEach(section => {
+    section.style.transform = 'translateY(50px)';
+    section.style.opacity = '0';
+    section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    observer.observe(section);
+});
+
+// Enhanced hover effects for project cards
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', (e) => {
+        const { left, top, width, height } = card.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        const moveX = (e.clientX - centerX) / 20;
+        const moveY = (e.clientY - centerY) / 20;
+        
+        card.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) translateZ(50px)`;
+        card.style.transition = 'transform 0.3s ease';
+    });
+    
+    card.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = card.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        const moveX = (e.clientX - centerX) / 20;
+        const moveY = (e.clientY - centerY) / 20;
+        
+        card.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) translateZ(50px)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
+        card.style.transition = 'transform 0.5s ease';
+    });
+});
+
+// Enhanced particle system
+function createParticles() {
     const hero = document.querySelector('.hero');
-    for (let i = 0; i < 50; i++) {
+    const particleCount = 30;
+    const particles = [];
+    
+    // Clear existing particles
+    hero.querySelectorAll('.particle').forEach(p => p.remove());
+    
+    for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 8 + 2;
+        const startPosition = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = 6 + Math.random() * 4;
+        const color = Math.random() > 0.5 ? 'var(--primary-orange)' : 'var(--accent-pink)';
+        
         particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 5}px;
-            height: ${Math.random() * 5}px;
-            background: ${Math.random() > 0.5 ? '#ff6b00' : '#ff69b4'};
-            border-radius: 50%;
-            top: ${Math.random() * 100}%;
-            left: ${Math.random() * 100}%;
-            pointer-events: none;
-            opacity: ${Math.random()};
-            animation: float ${5 + Math.random() * 10}s linear infinite;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${startPosition}%;
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+            background: ${color};
+            box-shadow: 0 0 ${size * 2}px ${color};
         `;
+        
         hero.appendChild(particle);
+        particles.push(particle);
     }
-};
-
-// Floating animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes float {
-        0% {
-            transform: translateY(0) translateX(0);
-        }
-        50% {
-            transform: translateY(-${Math.random() * 100}px) translateX(${Math.random() * 100}px);
-        }
-        100% {
-            transform: translateY(0) translateX(0);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Initialize particles
-createParticles();
-
-// Form submission with animation
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
     
-    const submitBtn = this.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
+    return particles;
+}
+
+// Mouse interaction for hero section
+function initHeroInteraction() {
+    const hero = document.querySelector('.hero');
+    let particles = createParticles();
     
-    // Add loading animation
-    submitBtn.innerHTML = '<span class="loading-spinner"></span>';
-    submitBtn.disabled = true;
+    // Recreate particles periodically
+    setInterval(() => {
+        particles.forEach(p => {
+            if (Math.random() > 0.8) { // 20% chance to reset
+                p.style.animation = 'none';
+                p.offsetHeight; // Trigger reflow
+                p.style.animation = null;
+            }
+        });
+    }, 3000);
     
-    // Simulate form submission (replace with actual form submission logic)
-    setTimeout(() => {
-        submitBtn.innerHTML = '✓ Sent!';
-        this.reset();
+    // Mouse movement effect
+    document.addEventListener('mousemove', (e) => {
+        if (hero) {
+            const rect = hero.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            hero.style.setProperty('--mouse-x', `${x}%`);
+            hero.style.setProperty('--mouse-y', `${y}%`);
+            
+            // Affect nearby particles
+            particles.forEach(particle => {
+                const particleRect = particle.getBoundingClientRect();
+                const particleX = particleRect.left + particleRect.width / 2;
+                const particleY = particleRect.top + particleRect.height / 2;
+                const distance = Math.hypot(e.clientX - particleX, e.clientY - particleY);
+                
+                if (distance < 100) {
+                    const angle = Math.atan2(e.clientY - particleY, e.clientX - particleX);
+                    const force = (100 - distance) / 100;
+                    const moveX = Math.cos(angle) * force * 50;
+                    const moveY = Math.sin(angle) * force * 50;
+                    
+                    particle.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+                } else {
+                    particle.style.transform = '';
+                }
+            });
+        }
+    });
+}
+
+// Add loading animation for project links
+document.querySelectorAll('.project-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        this.appendChild(spinner);
         
         setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    }, 1500);
-});
-
-// Typing animation for hero text
-const heroText = document.querySelector('.hero-content h1');
-const text = heroText.textContent;
-heroText.textContent = '';
-let i = 0;
-
-const typeWriter = () => {
-    if (i < text.length) {
-        heroText.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
-    }
-};
-
-// Start typing animation when page loads
-window.addEventListener('load', typeWriter);
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            spinner.remove();
+        }, 1000);
+    });
 });
