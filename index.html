@@ -238,23 +238,27 @@
                     <a href="https://github.com/ThenerzZ" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
                 </div>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" action="https://formspree.io/f/xkggpzao" method="POST">
                 <div class="brutalist-container">
-                    <input type="text" class="brutalist-input smooth-type" id="name" placeholder="Your Name">
+                    <input type="text" name="name" class="brutalist-input smooth-type" id="name" placeholder="Your Name" required>
                     <label for="name" class="brutalist-label">NAME</label>
                 </div>
                 
                 <div class="brutalist-container">
-                    <input type="email" class="brutalist-input smooth-type" id="email" placeholder="Your Email">
+                    <input type="email" name="email" class="brutalist-input smooth-type" id="email" placeholder="Your Email" required>
                     <label for="email" class="brutalist-label">EMAIL</label>
                 </div>
                 
                 <div class="brutalist-container">
-                    <textarea class="brutalist-input smooth-type" id="message" placeholder="Your Message" rows="5"></textarea>
+                    <textarea name="message" class="brutalist-input smooth-type" id="message" placeholder="Your Message" rows="5" required></textarea>
                     <label for="message" class="brutalist-label">MESSAGE</label>
                 </div>
                 
-                <button type="submit" class="brutalist-input submit-btn">SEND MESSAGE</button>
+                <button type="submit" class="brutalist-input submit-btn">
+                    <span class="btn-text">SEND MESSAGE</span>
+                    <span class="success-message" style="display: none;">Message Sent!</span>
+                    <div class="loading-spinner" style="display: none;"></div>
+                </button>
             </form>
         </div>
     </section>

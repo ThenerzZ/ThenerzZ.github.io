@@ -214,3 +214,62 @@ document.querySelectorAll('.project-link').forEach(link => {
         }, 1000);
     });
 });
+
+// Contact form handling
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.contact-form');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const successMsg = submitBtn.querySelector('.success-message');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    spinner.style.display = 'none';
+                    successMsg.style.display = 'inline-block';
+                    form.reset();
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                        btnText.style.display = 'inline-block';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Show error state
+                spinner.style.display = 'none';
+                btnText.textContent = 'Error! Try Again';
+                btnText.style.display = 'inline-block';
+                submitBtn.disabled = false;
+                
+                // Reset button text after 3 seconds
+                setTimeout(() => {
+                    btnText.textContent = 'SEND MESSAGE';
+                }, 3000);
+            }
+        });
+    }
+});
